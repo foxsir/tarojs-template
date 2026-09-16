@@ -9,8 +9,8 @@
 | 框架 | Taro 4.2.1 + React 18 + TypeScript 5 |
 | 编译器 | **vite**（`@tarojs/vite-runner`，非 webpack） |
 | 样式 | Sass（scss） |
-| UI 组件库 | `@nutui/nutui-react-taro@3.0.23-cpp`（NutUI React Taro 3.x） |
-| 图标 | `@nutui/icons-react-taro@3.0.2-cpp.3.beta.9`（与组件库内部依赖版本对齐，勿单独升级） |
+| UI 组件库 | `@nutui/nutui-react-taro@4.0.0-beta.7`（NutUI React Taro 4.x beta，已按官方 [v3→v4 迁移指南](https://nutui.jd.com/h5/react/4x/#/zh-CN/guide/migrate-from-v3) 升级） |
+| 图标 | `@nutui/icons-react-taro@3.0.2`（与组件库 v4 内部锁定依赖对齐，勿单独升级） |
 | 包管理 | pnpm >= 11.6.0（`packageManager` 字段锁定 11.6.0，Node >= 22.13.1） |
 | 主端 | 微信小程序（weapp），多端构建能力保留 |
 
@@ -107,8 +107,8 @@ import { ArrowRight } from '@nutui/icons-react-taro'     // 图标
 ```
 
 - 组件、图标都从具名导出引入，禁止全量 `import * as`。
-- 使用前查官方文档确认 Taro 端支持：<https://nutui.jd.com/taro/react/3x/>
-- 弹窗类组件（Dialog/Popup/Toast）优先用组件式 API；`Toast` 等命令式 API 需确认当前版本在小程序端可用。
+- 使用前查官方文档确认 Taro 端支持：<https://nutui.jd.com/taro/react/4x/>
+- 弹窗类组件（Dialog/Popup/Toast）优先用组件式 API；`Toast` 等命令式 API 需确认当前版本在小程序端可用。v4 中 `Toast` 默认时长由 2s 改为 3s，如需旧行为显式传 `duration: 2`。
 - 图标包版本随 `@nutui/nutui-react-taro` 的内部依赖走，不要单独升级 `@nutui/icons-react-taro`。
 
 ### 5.5 网络请求与业务

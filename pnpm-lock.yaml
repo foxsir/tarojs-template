@@ -12,11 +12,11 @@ importers:
         specifier: ^7.24.4
         version: 7.29.7
       '@nutui/icons-react-taro':
-        specifier: 3.0.2-cpp.3.beta.9
-        version: 3.0.2-cpp.3.beta.9
+        specifier: 3.0.2
+        version: 3.0.2
       '@nutui/nutui-react-taro':
-        specifier: 3.0.23-cpp
-        version: 3.0.23-cpp(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 4.0.0-beta.7
+        version: 4.0.0-beta.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tarojs/components':
         specifier: 4.2.1
         version: 4.2.1(@tarojs/helper@4.2.1(@swc/helpers@0.5.23))(@types/react@18.3.31)(postcss@8.5.28)(rollup@3.30.0)
@@ -1280,8 +1280,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@nutui/icons-react-taro@3.0.2-cpp.3.beta.9':
-    resolution: {integrity: sha512-YuFl5YwfgatCGBTCBmQhi4uv8gDLh8Fs4dCjTyb7TWRaeljRR9Suo9v5OZAPi1mdHfF21hu3WSWczJhvwYJJ6Q==}
+  '@nutui/icons-react-taro@3.0.2':
+    resolution: {integrity: sha512-yQgN1eOXVDQuJ9RLmQelo01LoDvRn81UsDdQf2Yct35qDeqEcc7yuBhnwCRrj6mc2Z8KFvzbGysbazmvP4g2VA==}
 
   '@nutui/jdesign-icons-react-taro@1.0.6-beta.2':
     resolution: {integrity: sha512-2Scz5c9o14gA7Mw5JdiEkc/KEbNlNWMcJMuqVyFVipYeeYN/118N/fvHVpocmJviN0Gc4P+u3ZB3dIQSA2j4Fw==}
@@ -1289,8 +1289,8 @@ packages:
   '@nutui/lottie-miniprogram@1.0.2':
     resolution: {integrity: sha512-6xV+uW8VK1hT8QfjqfNlURTiQijb/dEEl/AeOudMwOB55Fr2+TdxoOAks5d8vnYBTYDZyOUlcsGNgoAkXKz8Qg==}
 
-  '@nutui/nutui-react-taro@3.0.23-cpp':
-    resolution: {integrity: sha512-Mp9Z0FmbHlAQp1hKYqHKEv1f989/FWyO4AeMHua7WEihAGuuoCHUrsf4SfIKKvv90/wsV9j8YYiRtPoVCDCtAA==}
+  '@nutui/nutui-react-taro@4.0.0-beta.7':
+    resolution: {integrity: sha512-jec5Y6OVkDHTuwJpPA0k1hqewzcjbK6zcRAxPbtcQj+yOOnWCn2YJPVmwIT+GlFLLMs2zUQ6OLgxI90p9Cx7hQ==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
 
@@ -7181,16 +7181,16 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.3
 
-  '@nutui/icons-react-taro@3.0.2-cpp.3.beta.9': {}
+  '@nutui/icons-react-taro@3.0.2': {}
 
   '@nutui/jdesign-icons-react-taro@1.0.6-beta.2': {}
 
   '@nutui/lottie-miniprogram@1.0.2': {}
 
-  '@nutui/nutui-react-taro@3.0.23-cpp(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@nutui/nutui-react-taro@4.0.0-beta.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.29.7
-      '@nutui/icons-react-taro': 3.0.2-cpp.3.beta.9
+      '@nutui/icons-react-taro': 3.0.2
       '@nutui/jdesign-icons-react-taro': 1.0.6-beta.2
       '@nutui/lottie-miniprogram': 1.0.2
       '@nutui/touch-emulator': 1.0.0
@@ -7200,6 +7200,7 @@ snapshots:
       async-validator: 4.2.5
       classnames: 2.5.1
       codesandbox: 2.2.3
+      lodash.kebabcase: 4.1.1
       lottie-react: 2.4.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-fast-compare: 3.2.2

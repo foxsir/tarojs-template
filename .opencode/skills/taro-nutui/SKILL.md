@@ -10,7 +10,7 @@ description: Develop pages and components in this Taro 4 + React + NutUI React T
 ## 技术栈事实（不要重新调研）
 
 - Taro **4.2.1** + React 18 + TS + Sass，编译器是 **vite**（`compiler: 'vite'`），包管理 pnpm。
-- UI 库 `@nutui/nutui-react-taro`，图标 `@nutui/icons-react-taro`（版本随组件库内部依赖走）。
+- UI 库 `@nutui/nutui-react-taro@4.0.0-beta.7`（v4 beta），图标 `@nutui/icons-react-taro@3.0.2`（版本随组件库内部锁定依赖走，勿单独升级）。
 - 已开启 `@tarojs/plugin-html`；NutUI 全量样式已在 `src/app.ts` 引入：`import '@nutui/nutui-react-taro/dist/style.css'`。
 - **尺寸体系**：业务代码按 750 设计稿写 `px`（1px → 1rpx）；`@nutui` 包内样式按 375 自动转换（`config/index.ts` 的 `designWidth` 函数处理，勿改）。
 - vite 编译器下 `babel-plugin-import` 按需方案**不可用**，不要配置它。
@@ -54,7 +54,7 @@ import { Button, Cell } from '@nutui/nutui-react-taro'  // 具名导入，禁止
 import { ArrowRight } from '@nutui/icons-react-taro'
 ```
 
-- 组件选型先查 Taro 端文档（h5 端组件不一定都有 Taro 版）：https://nutui.jd.com/taro/react/3x/
+- 组件选型先查 Taro 端文档（h5 端组件不一定都有 Taro 版）：https://nutui.jd.com/taro/react/4x/
 - **样式定制优先级**：组件 props → NutUI CSS 变量（`--nutui-*`，可配 `ConfigProvider` 的 `theme`）→ 外层包裹类覆写变量。禁止直接覆盖 `nut-*` 内部类名，禁止 `!important`。
 - 弹窗类（Dialog/Popup/Toast）优先组件式写法；命令式 API（如 `Toast.show`）在小程序端的可用性以当前版本文档为准，用前验证。
 - 需要页面级滚动/上拉加载时，用 Taro 的 `onReachBottom`/`enablePullDownRefresh`（index.config.ts 中开启），配合 NutUI 的 `InfiniteLoading`。
