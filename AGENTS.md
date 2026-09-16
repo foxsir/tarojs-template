@@ -36,6 +36,7 @@ src/
   app.scss         全局样式
   pages/           页面，每页一个目录：index.tsx + index.config.ts + index.scss
   components/      业务公共组件（待建）
+  styles/          全局样式资源（theme.scss 科技蓝主题等）
   utils/           工具函数（待建）
   services/        接口请求封装（待建）
 types/             全局类型声明
@@ -66,6 +67,17 @@ NutUI 组件渲染依赖 HTML 标签，插件版本必须与 Taro 版本（4.2.1
 ### 4.5 H5 pxtransform 黑名单
 
 `h5.postcss.pxtransform.config.selectorBlackList: ['nut-']`，`nut-` 前缀类名不做单位转换，避免 NutUI 样式被二次转换。
+
+### 4.6 主题：科技蓝（CSS 变量覆盖）
+
+- 主题定义在 `src/styles/theme.scss`，由 `src/app.scss` 引入，全局生效。
+- 原理：v4 全量 `style.css` 不含颜色变量定义块，组件样式均为 `var(--nutui-*, 默认值)` 形式，因此在 `:root, page` 上定义变量即可覆盖，无加载顺序问题。
+- 只覆盖 `--nutui-color-primary-*` 语义变量；不要覆盖 `--nutui-brand-*` 基础色板（`red-*` 引用 brand，会连带污染 danger 红色系）。
+- v4 beta 存在个别硬编码色值的组件（如 `.nut-tag-primary` 写死 `#fa2c19`）：theme.scss 中以 `:root/page` 后代选择器提优先级打补丁（vendors.wxss 后加载，同优先级会输）；升级 NutUI 后复查是否已修复、补丁可移除。排查方法：在编译产物中搜索默认红色 hex（`#fa2c19`/`#ff0f23` 等）是否出现在 `var(...)` 之外。
+- 不要挂在 App 入口的 ConfigProvider：小程序端 App 组件包裹的 DOM 不会渲染到页面（原生 page 只渲染页面自身子树），只有 Context 生效，内联 CSS 变量不会出现在页面上。
+- 禁止用 `sass.data` / `additionalData` 注入含 CSS 输出的文件（如 themes/default.scss）：注入内容会进入**每一个** scss 编译单元，官方 Taro demo 曾因此导致 base64 字体重复 216 次、`app-origin.wxss` 膨胀至 4MB、wcsc 编译超时。若将来切换 Sass 源码主题路线，注入文件必须是纯 Sass 变量、零 CSS 输出。
+- NutUI 官方已知限制：`build:weapp` 生产压缩时 postcss-calc 可能破坏嵌套 `var + calc`（dev 无此问题），生产构建后需在开发者工具抽查组件样式。
+- 路径别名 `@/*` 同时配置在 `tsconfig.json` 的 `paths` 和 `config/index.ts` 的 `alias`（vite 不读 tsconfig paths，两处必须同步）。
 
 ## 5. 代码规范
 

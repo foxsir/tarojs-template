@@ -1,0 +1,37 @@
+// 科技蓝主题 —— 覆盖 NutUI v4 语义化 CSS 变量
+// 官方文档（方式一 CSS Variables）：https://nutui.jd.com/h5/react/4x/#/zh-CN/guide/theme-react
+//
+// 原理：v4 全量 style.css 中组件样式均为 var(--nutui-*, 默认值) 形式，
+// 且不包含颜色变量定义块，因此在这里定义变量即可全局生效，无加载顺序问题。
+//
+// 注意：只覆盖 --nutui-color-primary-* 语义变量，不要覆盖 --nutui-brand-* 基础色板
+// （themes/default.css 中 red-* 引用 brand，改 brand 会连带污染 danger 红色系）
+:root,
+page {
+  // 主色
+  --nutui-color-primary: #1677ff;
+  // 渐变色（渐变按钮等场景）
+  --nutui-color-primary-stop-1: #4096ff;
+  --nutui-color-primary-stop-2: #1677ff;
+  // 按压态
+  --nutui-color-primary-pressed: #0958d9;
+  // 浅色底（light 填充的 Tag/Button 背景）
+  --nutui-color-primary-light: #e6f4ff;
+  --nutui-color-primary-light-pressed: #bae0ff;
+  // 特殊禁用态
+  --nutui-color-primary-disabled-special: #91caff;
+  // 图标主色（Rate 等组件使用）
+  --nutui-color-primary-icon: #1677ff;
+  // 信息色/链接色与主色对齐
+  --nutui-blue-1: #e6f4ff;
+  --nutui-blue-2: #1677ff;
+  --nutui-blue-3: #0958d9;
+}
+
+// 补丁：v4 beta 中 .nut-tag-primary 的背景色是硬编码 #fa2c19（未走 CSS 变量），
+// 重新指向语义变量；升级 NutUI 后需复查是否已修复
+// 注意：vendors.wxss 后加载，同优先级会覆盖本规则，故用 :root/page 后代选择器提升优先级
+:root .nut-tag-primary,
+page .nut-tag-primary {
+  background: var(--nutui-color-primary);
+}

@@ -1,6 +1,6 @@
 import { View, Text } from '@tarojs/components'
 import { useLoad } from '@tarojs/taro'
-import { Button } from '@nutui/nutui-react-taro'
+import { Button, Tag } from '@nutui/nutui-react-taro'
 import './index.scss'
 
 export default function Index () {
@@ -11,7 +11,11 @@ export default function Index () {
   return (
     <View className='index'>
       <Text>Hello world!</Text>
-      <Button type='primary'>NutUI Button</Button>
+      <View className='index__demo'>
+        <Button type='primary'>科技蓝主题</Button>
+        <Button type='default'>默认按钮</Button>
+        <Tag type='primary'>标签</Tag>
+      </View>
     </View>
   )
 }

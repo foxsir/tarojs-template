@@ -55,7 +55,13 @@ import { ArrowRight } from '@nutui/icons-react-taro'
 ```
 
 - 组件选型先查 Taro 端文档（h5 端组件不一定都有 Taro 版）：https://nutui.jd.com/taro/react/4x/
-- **样式定制优先级**：组件 props → NutUI CSS 变量（`--nutui-*`，可配 `ConfigProvider` 的 `theme`）→ 外层包裹类覆写变量。禁止直接覆盖 `nut-*` 内部类名，禁止 `!important`。
+- **样式定制优先级**：组件 props → NutUI CSS 变量（`--nutui-*`）→ 外层包裹类覆写变量。禁止直接覆盖 `nut-*` 内部类名，禁止 `!important`。
+- **主题**：科技蓝主题在 `src/styles/theme.scss`（`:root, page` 上覆盖 `--nutui-*` 变量），全局生效，页面无需任何包裹。调整主题色改这个文件即可。
+  - 原理：v4 全量 style.css 不含颜色变量定义块，组件样式都是 `var(--nutui-*, 默认值)`，业务定义即覆盖。
+  - 不要在 App 入口挂 ConfigProvider 注入主题：小程序端 App 包裹的 DOM 不渲染到页面，内联变量不生效。
+  - 不要覆盖 `--nutui-brand-*` 基础色板（red-* 引用 brand，会连带污染 danger 红色系）。
+  - Sass 变量编译期方案（additionalData + style.scss 源码引入）未采用；如需切换需整体评估。
+- 别名 `@/` 指向 `src/`：tsconfig paths 与 `config/index.ts` 的 `alias` 双处配置，新增别名要同步两处。
 - 弹窗类（Dialog/Popup/Toast）优先组件式写法；命令式 API（如 `Toast.show`）在小程序端的可用性以当前版本文档为准，用前验证。
 - 需要页面级滚动/上拉加载时，用 Taro 的 `onReachBottom`/`enablePullDownRefresh`（index.config.ts 中开启），配合 NutUI 的 `InfiniteLoading`。
 
@@ -70,6 +76,9 @@ import { ArrowRight } from '@nutui/icons-react-taro'
 - 小程序端没有 DOM/BOM：`document`、`window`、`localStorage` 禁用；存储用 `Taro.setStorageSync`，平台差异用 `process.env.TARO_ENV` 判断。
 - Taro 4 生命周期用 Hooks：`useLoad`/`useDidShow`/`useReachBottom`，不用 class 组件生命周期。
 - 新增带构建脚本的依赖后，若 `pnpm install` 报 `ERR_PNPM_IGNORED_BUILDS`，到 `pnpm-workspace.yaml` 的 `allowBuilds` 里显式设置 true/false。
+- **不要用 `sass.data`/`additionalData` 注入会输出 CSS 的文件**（如 NutUI themes/*.scss）：内容会被注入每个 scss 编译单元，官方 Taro demo 曾因此 wcsc 超时、app-origin.wxss 膨胀到 4MB。注入只能是纯 Sass 变量。
+- **生产构建后抽查样式**：官方已知 `build:weapp` 生产压缩时 postcss-calc 可能破坏嵌套 `var + calc`（dev 正常），组件样式若异常先查这个。
+- 组件样式里的 `calc(24rpx * var(--nut-scale-f, 1))` 是 v4 的**等比缩放体系**：覆盖 `--nut-scale-f`（布局）/ `--nut-scale-font`（字号）/ `--nut-scale-icon`（图标）可整体缩放组件，做大字版/适老化时用；业务覆盖样式时注意 0 值写 `0` 不要写进 calc 缩放。
 - 微信开发者工具打开的是项目根目录（`project.config.json` 指向 `miniprogramRoot: ./dist`），先构建再看效果。
 
 ## 完成前验证（必须）

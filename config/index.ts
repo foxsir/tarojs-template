@@ -1,4 +1,5 @@
 import { defineConfig, type UserConfigExport } from '@tarojs/cli'
+import path from 'path'
 
 import devConfig from './dev'
 import prodConfig from './prod'
@@ -23,6 +24,10 @@ export default defineConfig<'vite'>(async (merge) => {
     },
     sourceRoot: 'src',
     outputRoot: 'dist',
+    // 路径别名 @ -> src（与 tsconfig paths 对齐）
+    alias: {
+      '@': path.resolve(__dirname, '..', 'src')
+    },
     plugins: [
       "@tarojs/plugin-generator",
       // NutUI 组件使用 HTML 标签，需开启 HTML 插件
