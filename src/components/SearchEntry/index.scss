@@ -1,0 +1,32 @@
+// 搜索 pill：白色全圆角长条 + 黑色圆形搜索按钮
+// 注意：不带顶部外边距，间距由页面容器/wrapper 提供
+.search-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 32px;
+  height: 96px;
+  padding: 0 16px 0 40px;
+  border-radius: 999px;
+  background: #ffffff;
+
+  &--pressed {
+    background: #f7f8fa;
+  }
+}
+
+.search-entry__placeholder {
+  font-size: 28px;
+  color: #505259;
+}
+
+.search-entry__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #1677ff;
+}

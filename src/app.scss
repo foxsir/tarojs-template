@@ -1,2 +1,11 @@
 // 全局样式
 @use './styles/theme.scss';
+
+// 内容页统一骨架：画布底 + 统一首间距与底部留白
+// 约定：内容页根节点用 className='page <页面名>'；首元素不带 margin-top，
+// 首间距只由页面容器提供；列表项用底部分隔（margin: 0 32px 16px）
+.page {
+  min-height: 100vh;
+  padding: 32px 0 40px;
+  background: #f2f3f5;
+}

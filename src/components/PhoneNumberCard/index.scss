@@ -1,0 +1,101 @@
+.phone-card {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 520px;
+  padding: 32px;
+  border-radius: 32px;
+  background: #ffffff;
+
+  &--pressed {
+    background: #f7f8fa;
+  }
+}
+
+.phone-card__head {
+  display: flex;
+  align-items: center;
+}
+
+.phone-card__mark {
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+
+.phone-card__number {
+  font-size: 36px;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: 1px;
+  font-variant-numeric: tabular-nums;
+}
+
+.phone-card__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  row-gap: 8px;
+}
+
+.phone-card__region {
+  font-size: 22px;
+  color: #505259;
+}
+
+.phone-card__reason,
+.phone-card__tag {
+  margin-left: 12px;
+  padding: 0 12px;
+  border-radius: 4px;
+  height: 32px;
+  font-size: 22px;
+  line-height: 32px;
+}
+
+.phone-card__reason {
+  color: #0958d9;
+  background: #e6f4ff;
+}
+
+.phone-card__tag {
+  color: #0958d9;
+  background: #e6f4ff;
+}
+
+.phone-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+}
+
+.phone-card__price {
+  display: flex;
+  align-items: baseline;
+  color: #1a1a1a;
+}
+
+.phone-card__price-symbol {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.phone-card__price-value {
+  font-size: 36px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+// 黑色 pill 按钮：卡片内主动作（lime-dashboard 语言）
+.phone-card__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-size: 22px;
+  color: #ffffff;
+  background: #1677ff;
+}
