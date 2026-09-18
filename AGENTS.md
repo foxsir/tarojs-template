@@ -118,6 +118,7 @@ NutUI 组件渲染依赖 HTML 标签，插件版本必须与 Taro 版本（4.2.1
 - 新页面必须注册到 `src/app.config.ts` 的 `pages`；首页必须排在第一个。
 - **页面布局约定**：内容页根节点用 `className='page <页面名>'`（全局 `.page` 类提供画布底色与统一首间距 32px）；首元素不带 `margin-top`，列表项用底部分隔（`margin: 0 32px 16px`）。首页为沉浸式例外，不用 `.page`。
 - **下拉刷新**：用微信原生方案——页面 `index.config.ts` 开 `enablePullDownRefresh: true`（建议同步 `backgroundColor: '#f2f3f5'`），页面组件用共享 hook `usePageRefresh(load)`（`src/hooks/`），不用 NutUI PullToRefresh（避免 ScrollView 侵入）。
+- **页面分享**：用共享 hook `useShare()`（`src/hooks/`，仅好友转发）。**必须**在页面 `index.config.ts` 声明 `enableShareAppMessage: true`——Taro 只在声明后才会把 `onShareAppMessage` 写进原生 `Page()` 配置，否则运行时报「当前页面未设置分享」。朋友圈分享需小程序正式发布后可用（届时加 `useShareTimeline` + `enableShareTimeline`）。
 - 业务公共组件放 `src/components/<Name>/`，目录 PascalCase。
 - 小程序端禁用 DOM/BOM API（`document`、`window` 等）；平台差异用 `process.env.TARO_ENV` 判断。
 
