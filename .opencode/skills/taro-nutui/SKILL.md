@@ -10,7 +10,7 @@ description: Develop pages and components in this Taro 4 + React + NutUI React T
 ## 技术栈事实（不要重新调研）
 
 - Taro **4.2.1** + React 18 + TS + Sass，编译器是 **vite**（`compiler: 'vite'`），包管理 pnpm。
-- UI 库 `@nutui/nutui-react-taro@4.0.0-beta.7`（v4 beta），图标 `@nutui/icons-react-taro@3.0.2`（版本随组件库内部锁定依赖走，勿单独升级）。
+- UI 库 `@nutui/nutui-react-taro@4.0.0-beta.7`（v4 beta），图标 `@nutui/icons-react-taro@3.0.2`（版本随组件库内部依赖走）。
 - 已开启 `@tarojs/plugin-html`；NutUI 全量样式已在 `src/app.ts` 引入：`import '@nutui/nutui-react-taro/dist/style.css'`。
 - **尺寸体系**：业务代码按 750 设计稿写 `px`（1px → 1rpx）；`@nutui` 包内样式按 375 自动转换（`config/index.ts` 的 `designWidth` 函数处理，勿改）。
 - vite 编译器下 `babel-plugin-import` 按需方案**不可用**，不要配置它。
@@ -55,6 +55,7 @@ import { ArrowRight } from '@nutui/icons-react-taro'
 ```
 
 - 组件选型先查 Taro 端文档（h5 端组件不一定都有 Taro 版）：https://nutui.jd.com/taro/react/4x/
+- 当前为 v4 beta；升级 NutUI 前先对照 v3→v4 迁移文档复查不兼容变更：https://nutui.jd.com/h5/react/4x/#/zh-CN/guide/migrate-from-v3
 - **样式定制优先级**：组件 props → NutUI CSS 变量（`--nutui-*`）→ 外层包裹类覆写变量。禁止直接覆盖 `nut-*` 内部类名，禁止 `!important`。
 - **主题**：科技蓝主题在 `src/styles/theme.scss`（`:root, page` 上覆盖 `--nutui-*` 变量），全局生效，页面无需任何包裹。调整主题色改这个文件即可。
   - 原理：v4 全量 style.css 不含颜色变量定义块，组件样式都是 `var(--nutui-*, 默认值)`，业务定义即覆盖。
@@ -76,6 +77,8 @@ import { ArrowRight } from '@nutui/icons-react-taro'
 - 小程序端没有 DOM/BOM：`document`、`window`、`localStorage` 禁用；存储用 `Taro.setStorageSync`，平台差异用 `process.env.TARO_ENV` 判断。
 - Taro 4 生命周期用 Hooks：`useLoad`/`useDidShow`/`useReachBottom`，不用 class 组件生命周期。
 - 新增带构建脚本的依赖后，若 `pnpm install` 报 `ERR_PNPM_IGNORED_BUILDS`，到 `pnpm-workspace.yaml` 的 `allowBuilds` 里显式设置 true/false。
+- 内容页布局统一用全局 `.page` 类（app.scss）：`className='page <页面名>'`，首元素不带 margin-top，列表项底部分隔；首页沉浸式例外。
+- 下拉刷新用原生方案：页面 config 开 `enablePullDownRefresh: true` + `backgroundColor: '#f2f3f5'`，组件里用 `usePageRefresh(load)`（src/hooks/）。
 - **不要用 `sass.data`/`additionalData` 注入会输出 CSS 的文件**（如 NutUI themes/*.scss）：内容会被注入每个 scss 编译单元，官方 Taro demo 曾因此 wcsc 超时、app-origin.wxss 膨胀到 4MB。注入只能是纯 Sass 变量。
 - **生产构建后抽查样式**：官方已知 `build:weapp` 生产压缩时 postcss-calc 可能破坏嵌套 `var + calc`（dev 正常），组件样式若异常先查这个。
 - 组件样式里的 `calc(24rpx * var(--nut-scale-f, 1))` 是 v4 的**等比缩放体系**：覆盖 `--nut-scale-f`（布局）/ `--nut-scale-font`（字号）/ `--nut-scale-icon`（图标）可整体缩放组件，做大字版/适老化时用；业务覆盖样式时注意 0 值写 `0` 不要写进 calc 缩放。
